@@ -9,6 +9,7 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
+    "process-data": "node scripts/process-data.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -31,5 +32,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "csvtojson": "^2.0.10"
   }
 }
