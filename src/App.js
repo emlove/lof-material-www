@@ -1,13 +1,21 @@
 import React from 'react';
-import './App.css';
+
+import { Routes, Route } from 'react-router';
+
+import AppBar from './components/AppBar.js';
+
+import Home from './pages/Home.js';
+import Events from './pages/Event/Events.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        Lakes of Fire
-      </header>
-    </div>
+    <>
+      <AppBar />
+      <Routes>
+        <Route index path="*" element={<Home />} />
+        <Route path="/events" element={<Events />} />
+      </Routes>
+    </>
   );
 }
 
