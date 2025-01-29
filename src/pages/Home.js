@@ -4,10 +4,12 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
-import { default as MuiLink } from '@mui/material/Link';
+import MuiLink from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router';
 
 import LaunchIcon from '@mui/icons-material/Launch';
+
+import { NAVIGATION_LINKS } from 'const';
 
 const EXTERNAL_LINKS = [
   {
@@ -25,13 +27,6 @@ const EXTERNAL_LINKS = [
   {
     title: 'Code of Conduct',
     url: 'http://lakesoffire.org/code-of-conduct',
-  },
-];
-
-const INTERNAL_LINKS = [
-  {
-    title: 'Events',
-    path: '/events',
   },
 ];
 
@@ -57,7 +52,7 @@ function Home() {
         </Grid>
       ))}
       <Divider sx={{ width: '100%' }} />
-      {INTERNAL_LINKS.map((linkData) => (
+      {NAVIGATION_LINKS.map((linkData) => (
         <Grid key={linkData.path} size={{ xs: 12, md: 6, lg: 4 }}>
           <Button
             component={RouterLink}

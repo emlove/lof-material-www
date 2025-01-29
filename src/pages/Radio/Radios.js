@@ -7,32 +7,32 @@ import Skeleton from '@mui/material/Skeleton';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 
-import { useEventTimes } from 'contexts/data';
+import { useRadios } from 'contexts/data';
 
-import EventCard from 'components/EventCard';
+import RadioCard from 'components/RadioCard';
 
 import { EVENT_DAYS } from 'const';
 
-function Events() {
-  const eventTimes = useEventTimes();
-  const sortedEventTimes = useMemo(
+function Radios() {
+  const radios = useRadios();
+  const sortedRadios = useMemo(
     () =>
-      eventTimes &&
-      Object.values(eventTimes).toSorted((a, b) => a.starting < b.starting),
-    [eventTimes]
+      radios &&
+      Object.values(radios).toSorted((a, b) => a.radio_time > b.radio_time),
+    [radios]
   );
 
   const [selectedDay, setSelectedDay] = useState('Wednesday');
 
-  function renderEventTime(eventTime) {
-    if (eventTime.day_of_week !== selectedDay) {
+  function renderRadio(radio) {
+    if (radio.radio_day !== selectedDay) {
       return null;
     }
-    return <EventCard eventTime={eventTime} />;
+    return <RadioCard radio={radio} />;
   }
 
-  function renderEvents() {
-    if (!sortedEventTimes) {
+  function renderRadios() {
+    if (!sortedRadios) {
       return Array(12)
         .fill(null)
         .map((_, index) => (
@@ -41,12 +41,12 @@ function Events() {
           </Grid>
         ));
     }
-    return sortedEventTimes.map(renderEventTime);
+    return sortedRadios.map(renderRadio);
   }
 
   return (
     <>
-      <Typography variant="h2">Events</Typography>
+      <Typography variant="h2">Radio</Typography>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={selectedDay}
@@ -61,10 +61,10 @@ function Events() {
         </Tabs>
       </Box>
       <Grid container spacing={2} padding={2}>
-        {renderEvents()}
+        {renderRadios()}
       </Grid>
     </>
   );
 }
 
-export default Events;
+export default Radios;

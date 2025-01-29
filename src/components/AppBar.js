@@ -16,7 +16,8 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
 import MenuIcon from '@mui/icons-material/Menu';
-import EventIcon from '@mui/icons-material/Event';
+
+import { NAVIGATION_LINKS } from 'const';
 
 function App() {
   const [open, setOpen] = useState(false);
@@ -59,18 +60,23 @@ function App() {
       </Box>
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
         <List>
-          <ListItem>
-            <ListItemButton
-              component={NavLink}
-              to="/events"
-              onClick={() => setOpen(false)}
-            >
-              <ListItemIcon>
-                <EventIcon />
-              </ListItemIcon>
-              <ListItemText primary="Events" />
-            </ListItemButton>
-          </ListItem>
+          {NAVIGATION_LINKS.map((link) => {
+            const IconComponent = link.icon;
+            return (
+              <ListItem key={link.path}>
+                <ListItemButton
+                  component={NavLink}
+                  to={link.path}
+                  onClick={() => setOpen(false)}
+                >
+                  <ListItemIcon>
+                    <IconComponent />
+                  </ListItemIcon>
+                  <ListItemText primary={link.title} />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
         </List>
       </Drawer>
     </>

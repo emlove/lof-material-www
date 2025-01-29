@@ -1,0 +1,29 @@
+import React from 'react';
+
+import { Link } from 'react-router';
+
+import ButtonBase from '@mui/material/ButtonBase';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid2';
+
+import { MAX_DESCRIPTION_LENGTH } from 'const';
+
+function ArtCard({ art }) {
+  return (
+    <Grid key={art.id} size={{ xs: 12, md: 6, lg: 4 }}>
+      <ButtonBase component={Link} to={`/art/${art.id}`}>
+        <Paper sx={{ padding: 2 }}>
+          <Typography variant="h5">{art.title}</Typography>
+          <Typography variant="subtitle1">
+            {art.description.length > MAX_DESCRIPTION_LENGTH
+              ? `${art.description.substring(0, MAX_DESCRIPTION_LENGTH)}…`
+              : art.description}
+          </Typography>
+        </Paper>
+      </ButtonBase>
+    </Grid>
+  );
+}
+
+export default ArtCard;

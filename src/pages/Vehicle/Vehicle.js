@@ -1,0 +1,29 @@
+import React from 'react';
+
+import { useParams } from 'react-router';
+
+import { useVehicle } from 'contexts/data';
+
+import Typography from '@mui/material/Typography';
+import Skeleton from '@mui/material/Skeleton';
+
+function Vehicle() {
+  const params = useParams();
+  const vehicle = useVehicle(params.id);
+  return (
+    <>
+      <Typography variant="h2">
+        {vehicle === null ? <Skeleton /> : vehicle.title}
+      </Typography>
+      <Typography variant="body1">
+        {vehicle === null
+          ? Array(4)
+              .fill(null)
+              .map(() => <Skeleton />)
+          : vehicle.description}
+      </Typography>
+    </>
+  );
+}
+
+export default Vehicle;
