@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -28,36 +29,42 @@ function App() {
             background: 'linear-gradient(90deg, #eb3a52 0%, #e05855 100%)',
           }}
         >
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              onClick={() => setOpen((wasOpen) => !wasOpen)}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              component={Link}
-              to="/"
-              sx={{
-                flexGrow: 1,
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              Lakes of Fire
-            </Typography>
-          </Toolbar>
+          <Container maxwidth="xs">
+            <Toolbar>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+                onClick={() => setOpen((wasOpen) => !wasOpen)}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography
+                variant="h6"
+                component={Link}
+                to="/"
+                sx={{
+                  flexGrow: 1,
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                Lakes of Fire
+              </Typography>
+            </Toolbar>
+          </Container>
         </AppBar>
       </Box>
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
         <List>
           <ListItem>
-            <ListItemButton component={NavLink} to="/events">
+            <ListItemButton
+              component={NavLink}
+              to="/events"
+              onClick={() => setOpen(false)}
+            >
               <ListItemIcon>
                 <EventIcon />
               </ListItemIcon>

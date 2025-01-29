@@ -2,20 +2,28 @@ import React from 'react';
 
 import { Routes, Route } from 'react-router';
 
-import AppBar from './components/AppBar.js';
+import Container from '@mui/material/Container';
 
-import Home from './pages/Home.js';
-import Events from './pages/Event/Events.js';
+import AppBar from './components/AppBar';
+
+import Home from 'pages/Home';
+import Events from 'pages/Event/Events';
+import Event from 'pages/Event/Event';
+
+import DataContextProvider from 'components/DataContextProvider';
 
 function App() {
   return (
-    <>
+    <DataContextProvider>
       <AppBar />
-      <Routes>
-        <Route index path="*" element={<Home />} />
-        <Route path="/events" element={<Events />} />
-      </Routes>
-    </>
+      <Container maxwidth="xs">
+        <Routes>
+          <Route index path="*" element={<Home />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/event/:id" element={<Event />} />
+        </Routes>
+      </Container>
+    </DataContextProvider>
   );
 }
 
