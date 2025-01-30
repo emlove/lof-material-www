@@ -11,7 +11,7 @@ import { MAX_DESCRIPTION_LENGTH } from 'const';
 
 function CampCard({ camp }) {
   return (
-    <Grid key={camp.id} size={{ xs: 12, md: 6, lg: 4 }}>
+    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
       <ButtonBase component={Link} to={`/camp/${camp.id}`}>
         <Paper sx={{ padding: 2 }}>
           <Typography variant="h5">{camp.name}</Typography>

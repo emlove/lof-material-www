@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import Skeleton from '@mui/material/Skeleton';
 
 import { useVehicles } from 'contexts/data';
 
 import VehicleCard from 'components/VehicleCard';
+import Header from 'components/Header';
 
 function Vehicles() {
   const vehicles = useVehicles();
@@ -26,12 +26,14 @@ function Vehicles() {
           </Grid>
         ));
     }
-    return sortedVehicles.map((vehicle) => <VehicleCard vehicle={vehicle} />);
+    return sortedVehicles.map((vehicle) => (
+      <VehicleCard key={vehicle.id} vehicle={vehicle} />
+    ));
   }
 
   return (
     <>
-      <Typography variant="h2">Vehicles</Typography>
+      <Header>Vehicles</Header>
       <Grid container spacing={2} padding={2}>
         {renderVehicles()}
       </Grid>

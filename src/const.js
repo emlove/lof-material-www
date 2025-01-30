@@ -41,3 +41,5 @@ export const EVENT_DAYS = [
   'Saturday',
   'Sunday',
 ];
+
+export const EVENT_TIMEZONE = 'America/Detroit';

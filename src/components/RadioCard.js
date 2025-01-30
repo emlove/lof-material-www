@@ -11,7 +11,7 @@ import { MAX_DESCRIPTION_LENGTH } from 'const';
 
 function RadioCard({ radio }) {
   return (
-    <Grid key={radio.id} size={{ xs: 12, md: 6, lg: 4 }}>
+    <Grid size={{ xs: 12, md: 6, lg: 4 }}>
       <ButtonBase component={Link} to={`/radio/${radio.id}`}>
         <Paper sx={{ padding: 2 }}>
           <Typography variant="h5">{radio.radio_dj_name}</Typography>

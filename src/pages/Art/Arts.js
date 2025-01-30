@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import Skeleton from '@mui/material/Skeleton';
 
 import { useArts } from 'contexts/data';
 
 import ArtCard from 'components/ArtCard';
+import Header from 'components/Header';
 
 function Arts() {
   const arts = useArts();
@@ -25,12 +25,12 @@ function Arts() {
           </Grid>
         ));
     }
-    return sortedArts.map((art) => <ArtCard art={art} />);
+    return sortedArts.map((art) => <ArtCard key={art.id} art={art} />);
   }
 
   return (
     <>
-      <Typography variant="h2">Art</Typography>
+      <Header>Art</Header>
       <Grid container spacing={2} padding={2}>
         {renderArts()}
       </Grid>

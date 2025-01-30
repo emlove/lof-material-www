@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Routes, Route } from 'react-router';
+import { Routes, Route, Navigate } from 'react-router';
 
 import Container from '@mui/material/Container';
 
@@ -24,9 +24,9 @@ function App() {
   return (
     <DataContextProvider>
       <AppBar />
-      <Container maxwidth="xs" sx={{ paddingTop: 2 }}>
+      <Container maxwidth="xs" sx={{ paddingTop: 2, paddingBottom: 2 }}>
         <Routes>
-          <Route index path="*" element={<Home />} />
+          <Route index element={<Home />} />
           <Route path="/art" element={<Arts />} />
           <Route path="/art/:id" element={<Art />} />
           <Route path="/camps" element={<Camps />} />
@@ -37,6 +37,8 @@ function App() {
           <Route path="/radio/:id" element={<Radio />} />
           <Route path="/vehicles" element={<Vehicles />} />
           <Route path="/vehicle/:id" element={<Vehicle />} />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </Container>
     </DataContextProvider>

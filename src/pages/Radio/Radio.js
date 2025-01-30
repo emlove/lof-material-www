@@ -7,14 +7,14 @@ import { useRadio } from 'contexts/data';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 
+import Header from 'components/Header';
+
 function Radio() {
   const params = useParams();
   const radio = useRadio(params.id);
   return (
     <>
-      <Typography variant="h2">
-        {radio === null ? <Skeleton /> : radio.radio_dj_name}
-      </Typography>
+      <Header>{radio === null ? <Skeleton /> : radio.radio_dj_name}</Header>
       <Typography variant="body1">
         {radio === null
           ? Array(4)

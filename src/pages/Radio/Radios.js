@@ -1,17 +1,13 @@
 import React, { useState, useMemo } from 'react';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import Skeleton from '@mui/material/Skeleton';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 
 import { useRadios } from 'contexts/data';
 
 import RadioCard from 'components/RadioCard';
-
-import { EVENT_DAYS } from 'const';
+import Header from 'components/Header';
+import SelectDayTabBar from 'components/SelectDayTabBar';
 
 function Radios() {
   const radios = useRadios();
@@ -28,7 +24,7 @@ function Radios() {
     if (radio.radio_day !== selectedDay) {
       return null;
     }
-    return <RadioCard radio={radio} />;
+    return <RadioCard key={radio.id} radio={radio} />;
   }
 
   function renderRadios() {
@@ -46,20 +42,11 @@ function Radios() {
 
   return (
     <>
-      <Typography variant="h2">Radio</Typography>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={selectedDay}
-          onChange={(e, newValue) => setSelectedDay(newValue)}
-          aria-label="Select day of week"
-          scrollButtons
-          allowScrollButtonsMobile
-        >
-          {EVENT_DAYS.map((day) => (
-            <Tab key={day} label={day} value={day} />
-          ))}
-        </Tabs>
-      </Box>
+      <Header>Radio</Header>
+      <SelectDayTabBar
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
+      />
       <Grid container spacing={2} padding={2}>
         {renderRadios()}
       </Grid>

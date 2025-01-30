@@ -7,14 +7,16 @@ import { useEventTime } from 'contexts/data';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 
+import Header from 'components/Header';
+
 function Event() {
   const params = useParams();
   const eventTime = useEventTime(params.id);
   return (
     <>
-      <Typography variant="h2">
+      <Header>
         {eventTime === null ? <Skeleton /> : eventTime.event.title}
-      </Typography>
+      </Header>
       <Typography variant="body1">
         {eventTime === null
           ? Array(4)

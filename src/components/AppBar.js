@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Drawer from '@mui/material/Drawer';
+import Divider from '@mui/material/Divider';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -15,12 +16,54 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MenuIcon from '@mui/icons-material/Menu';
+import HomeIcon from '@mui/icons-material/Home';
 
 import { NAVIGATION_LINKS } from 'const';
 
 function App() {
+  const location = useLocation();
   const [open, setOpen] = useState(false);
+
+  function renderMenuButton() {
+    return (
+      <IconButton
+        size="large"
+        edge="start"
+        color="inherit"
+        aria-label="menu"
+        sx={{ mr: 2 }}
+        onClick={() => setOpen(!open)}
+      >
+        <MenuIcon />
+      </IconButton>
+    );
+  }
+
+  function renderBackButton() {
+    return (
+      <IconButton
+        size="large"
+        edge="start"
+        color="inherit"
+        aria-label="menu"
+        sx={{ mr: 2 }}
+        component={Link}
+        to={-1}
+      >
+        <ArrowBackIcon />
+      </IconButton>
+    );
+  }
+
+  function renderButton() {
+    if (location.key !== 'default' && location.pathname.split('/').length > 2) {
+      return renderBackButton();
+    }
+    return renderMenuButton();
+  }
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -32,16 +75,7 @@ function App() {
         >
           <Container maxwidth="xs">
             <Toolbar>
-              <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-                onClick={() => setOpen((wasOpen) => !wasOpen)}
-              >
-                <MenuIcon />
-              </IconButton>
+              {renderButton()}
               <Typography
                 variant="h6"
                 component={Link}
@@ -60,6 +94,19 @@ function App() {
       </Box>
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
         <List>
+          <ListItem>
+            <ListItemButton
+              component={NavLink}
+              to="/"
+              onClick={() => setOpen(false)}
+            >
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
           {NAVIGATION_LINKS.map((link) => {
             const IconComponent = link.icon;
             return (

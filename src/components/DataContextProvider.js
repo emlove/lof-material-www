@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import * as dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import { INITIAL_DATA, DataContext } from 'contexts/data';
 
@@ -12,20 +13,32 @@ import camps from 'data/camps.json';
 import radios from 'data/radio.json';
 import vehicles from 'data/vehicles.json';
 
+import { EVENT_TIMEZONE } from 'const';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
+dayjs.extend(localizedFormat);
 
 function DataContextProvider({ children }) {
   const [dataState, setDataState] = useState(INITIAL_DATA);
   useEffect(() => {
+    const parsedEvents = events.map((event) => ({
+      ...event,
+      event_times: event.event_times.map((eventTime) => ({
+        ...eventTime,
+        starting: dayjs.tz(eventTime.starting, EVENT_TIMEZONE),
+        ending: dayjs.tz(eventTime.ending, EVENT_TIMEZONE),
+      })),
+    }));
+
     setDataState((lastState) => ({
       ...lastState,
       events: Object.fromEntries(
-        events.map((event) => [event.event_id, event])
+        parsedEvents.map((event) => [event.event_id, event])
       ),
     }));
 
-    const eventTimes = events.reduce((collectedTimes, event) => {
+    const eventTimes = parsedEvents.reduce((collectedTimes, event) => {
       return [
         ...collectedTimes,
         ...event.event_times.map((eventTime) => ({
@@ -58,7 +71,7 @@ function DataContextProvider({ children }) {
           radio.id,
           {
             ...radio,
-            radio_time: dayjs.tz(radio.radio_time, 'America/Detroit'),
+            radio_time: dayjs.tz(radio.radio_time, EVENT_TIMEZONE),
           },
         ])
       ),

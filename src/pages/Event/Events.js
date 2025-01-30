@@ -1,24 +1,22 @@
 import React, { useState, useMemo } from 'react';
 
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import Skeleton from '@mui/material/Skeleton';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
 
 import { useEventTimes } from 'contexts/data';
 
 import EventCard from 'components/EventCard';
-
-import { EVENT_DAYS } from 'const';
+import Header from 'components/Header';
+import SelectDayTabBar from 'components/SelectDayTabBar';
 
 function Events() {
   const eventTimes = useEventTimes();
   const sortedEventTimes = useMemo(
     () =>
       eventTimes &&
-      Object.values(eventTimes).toSorted((a, b) => a.starting < b.starting),
+      Object.values(eventTimes).toSorted(
+        (a, b) => (b.all_day || a.starting > b.starting) && !a.all_day
+      ),
     [eventTimes]
   );
 
@@ -28,7 +26,7 @@ function Events() {
     if (eventTime.day_of_week !== selectedDay) {
       return null;
     }
-    return <EventCard eventTime={eventTime} />;
+    return <EventCard key={eventTime.event_time_id} eventTime={eventTime} />;
   }
 
   function renderEvents() {
@@ -46,20 +44,11 @@ function Events() {
 
   return (
     <>
-      <Typography variant="h2">Events</Typography>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs
-          value={selectedDay}
-          onChange={(e, newValue) => setSelectedDay(newValue)}
-          aria-label="Select day of week"
-          scrollButtons
-          allowScrollButtonsMobile
-        >
-          {EVENT_DAYS.map((day) => (
-            <Tab key={day} label={day} value={day} />
-          ))}
-        </Tabs>
-      </Box>
+      <Header>Events</Header>
+      <SelectDayTabBar
+        selectedDay={selectedDay}
+        setSelectedDay={setSelectedDay}
+      />
       <Grid container spacing={2} padding={2}>
         {renderEvents()}
       </Grid>

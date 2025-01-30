@@ -7,14 +7,14 @@ import { useArt } from 'contexts/data';
 import Typography from '@mui/material/Typography';
 import Skeleton from '@mui/material/Skeleton';
 
+import Header from 'components/Header';
+
 function Art() {
   const params = useParams();
   const art = useArt(params.id);
   return (
     <>
-      <Typography variant="h2">
-        {art === null ? <Skeleton /> : art.title}
-      </Typography>
+      <Header>{art === null ? <Skeleton /> : art.title}</Header>
       <Typography variant="body1">
         {art === null
           ? Array(4)

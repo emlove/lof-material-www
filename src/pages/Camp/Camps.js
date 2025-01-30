@@ -1,12 +1,12 @@
 import React, { useMemo } from 'react';
 
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import Skeleton from '@mui/material/Skeleton';
 
 import { useCamps } from 'contexts/data';
 
 import CampCard from 'components/CampCard';
+import Header from 'components/Header';
 
 function Camps() {
   const camps = useCamps();
@@ -25,12 +25,12 @@ function Camps() {
           </Grid>
         ));
     }
-    return sortedCamps.map((camp) => <CampCard camp={camp} />);
+    return sortedCamps.map((camp) => <CampCard key={camp.id} camp={camp} />);
   }
 
   return (
     <>
-      <Typography variant="h2">Camps</Typography>
+      <Header>Camps</Header>
       <Grid container spacing={2} padding={2}>
         {renderCamps()}
       </Grid>

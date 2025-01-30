@@ -2,12 +2,13 @@ import React from 'react';
 
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import MuiLink from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router';
 
 import LaunchIcon from '@mui/icons-material/Launch';
+
+import Header from 'components/Header';
 
 import { NAVIGATION_LINKS } from 'const';
 
@@ -33,8 +34,8 @@ const EXTERNAL_LINKS = [
 function Home() {
   return (
     <Grid container spacing={2}>
-      <Grid size="12">
-        <Typography variant="h1">Welcome to Lakes of Fire!</Typography>
+      <Grid size={{ xs: 12 }}>
+        <Header align="center">Welcome to Lakes of Fire!</Header>
       </Grid>
       {EXTERNAL_LINKS.map((linkData) => (
         <Grid key={linkData.url} size={{ xs: 12, md: 6 }}>
