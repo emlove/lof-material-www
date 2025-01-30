@@ -15,7 +15,11 @@ function Events() {
     () =>
       eventTimes &&
       Object.values(eventTimes).toSorted(
-        (a, b) => (b.all_day || a.starting > b.starting) && !a.all_day
+        (a, b) =>
+          b.all_day - a.all_day ||
+          a.starting - b.starting ||
+          a.ending - b.ending ||
+          a.event.title.localeCompare(b.event.title)
       ),
     [eventTimes]
   );

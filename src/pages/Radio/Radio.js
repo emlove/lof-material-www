@@ -15,6 +15,7 @@ function Radio() {
   return (
     <>
       <Header>{radio === null ? <Skeleton /> : radio.radio_dj_name}</Header>
+      <Typography variant="h5">{radio.radio_time.format('dddd LT')}</Typography>
       <Typography variant="body1">
         {radio === null
           ? Array(4)

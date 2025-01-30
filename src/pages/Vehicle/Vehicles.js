@@ -33,7 +33,7 @@ function Vehicles() {
 
   return (
     <>
-      <Header>Vehicles</Header>
+      <Header>Art Cars</Header>
       <Grid container spacing={2} padding={2}>
         {renderVehicles()}
       </Grid>

@@ -14,7 +14,7 @@ function Radios() {
   const sortedRadios = useMemo(
     () =>
       radios &&
-      Object.values(radios).toSorted((a, b) => a.radio_time > b.radio_time),
+      Object.values(radios).toSorted((a, b) => a.radio_time - b.radio_time),
     [radios]
   );
 
@@ -42,7 +42,7 @@ function Radios() {
 
   return (
     <>
-      <Header>Radio</Header>
+      <Header>Radio SGC</Header>
       <SelectDayTabBar
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}

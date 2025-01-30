@@ -23,12 +23,12 @@ export const NAVIGATION_LINKS = [
     icon: FestivalIcon,
   },
   {
-    title: 'Radio',
+    title: 'Radio SGC',
     path: '/radio',
     icon: RadioIcon,
   },
   {
-    title: 'Vehicles',
+    title: 'Art Cars',
     path: '/vehicles',
     icon: DriveEtaIcon,
   },

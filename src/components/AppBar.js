@@ -74,7 +74,7 @@ function App() {
           }}
         >
           <Container maxwidth="xs">
-            <Toolbar>
+            <Toolbar id="app-bar">
               {renderButton()}
               <Typography
                 variant="h6"

@@ -13,6 +13,8 @@ import CardHeader from '@mui/material/CardHeader';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
+import EventTags from 'components/EventTags';
+
 import { MAX_DESCRIPTION_LENGTH } from 'const';
 
 function EventCard({ eventTime }) {
@@ -26,7 +28,9 @@ function EventCard({ eventTime }) {
           <CardHeader
             title={eventTime.event.title}
             subheader={
-              eventTime.all_day ? 'All Day' : eventTime.starting.format('LT')
+              eventTime.all_day
+                ? 'All Day'
+                : `${eventTime.starting.format('LT')} - ${eventTime.ending.format('LT')}`
             }
           />
           <CardContent>
@@ -35,6 +39,7 @@ function EventCard({ eventTime }) {
                 ? `${eventTime.event.event_description.substring(0, MAX_DESCRIPTION_LENGTH)}…`
                 : eventTime.event.event_description}
             </Typography>
+            <EventTags event={eventTime.event} />
           </CardContent>
         </CardActionArea>
         <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>

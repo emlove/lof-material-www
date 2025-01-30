@@ -19,6 +19,8 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(localizedFormat);
 
+dayjs.tz.setDefault(EVENT_TIMEZONE);
+
 function DataContextProvider({ children }) {
   const [dataState, setDataState] = useState(INITIAL_DATA);
   useEffect(() => {
@@ -27,7 +29,7 @@ function DataContextProvider({ children }) {
       event_times: event.event_times.map((eventTime) => ({
         ...eventTime,
         starting: dayjs.tz(eventTime.starting, EVENT_TIMEZONE),
-        ending: dayjs.tz(eventTime.ending, EVENT_TIMEZONE),
+        ending: dayjs(eventTime.ending).tz(EVENT_TIMEZONE, true),
       })),
     }));
 
@@ -71,7 +73,7 @@ function DataContextProvider({ children }) {
           radio.id,
           {
             ...radio,
-            radio_time: dayjs.tz(radio.radio_time, EVENT_TIMEZONE),
+            radio_time: dayjs(radio.radio_time).tz(EVENT_TIMEZONE, true),
           },
         ])
       ),
