@@ -2,15 +2,22 @@ import React, { useState, useMemo } from 'react';
 
 import Grid from '@mui/material/Grid2';
 import Skeleton from '@mui/material/Skeleton';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
 
 import { useEventTimes } from 'contexts/data';
+import { useFavoriteEventTimeIds } from 'contexts/favorites';
 
 import EventCard from 'components/EventCard';
 import Header from 'components/Header';
 import SelectDayTabBar from 'components/SelectDayTabBar';
 
-function Events() {
+import FilterListIcon from '@mui/icons-material/FilterList';
+
+function Events({ favoritesOnly }) {
+  const [filterDrawerOpen, setFilterDrawerOpen] = useState(false);
   const eventTimes = useEventTimes();
+  const favoriteEventTimeIds = useFavoriteEventTimeIds();
   const sortedEventTimes = useMemo(
     () =>
       eventTimes &&
@@ -28,6 +35,9 @@ function Events() {
 
   function renderEventTime(eventTime) {
     if (eventTime.day_of_week !== selectedDay) {
+      return null;
+    }
+    if (favoritesOnly && !favoriteEventTimeIds.has(eventTime.event_time_id)) {
       return null;
     }
     return <EventCard key={eventTime.event_time_id} eventTime={eventTime} />;
@@ -48,7 +58,23 @@ function Events() {
 
   return (
     <>
-      <Header>Events</Header>
+      <Header
+        button={
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label={filterDrawerOpen ? 'Show filters' : 'Hide filters'}
+            sx={{ mr: 2 }}
+            onClick={() => setFilterDrawerOpen(!filterDrawerOpen)}
+          >
+            <FilterListIcon />
+          </IconButton>
+        }
+      >
+        Events
+      </Header>
+      <Collapse in={filterDrawerOpen}>Filters filters !</Collapse>
       <SelectDayTabBar
         selectedDay={selectedDay}
         setSelectedDay={setSelectedDay}

@@ -23,6 +23,7 @@ dayjs.tz.setDefault(EVENT_TIMEZONE);
 
 function DataContextProvider({ children }) {
   const [dataState, setDataState] = useState(INITIAL_DATA);
+
   useEffect(() => {
     const parsedEvents = events.map((event) => ({
       ...event,

@@ -19,28 +19,34 @@ import Vehicles from 'pages/Vehicle/Vehicles';
 import Vehicle from 'pages/Vehicle/Vehicle';
 
 import DataContextProvider from 'components/DataContextProvider';
+import FavoritesContextProvider from 'components/FavoritesContextProvider';
+import BackToTopButton from 'components/BackToTopButton';
 
 function App() {
   return (
     <DataContextProvider>
-      <AppBar />
-      <Container maxwidth="xs" sx={{ paddingTop: 2, paddingBottom: 2 }}>
-        <Routes>
-          <Route index element={<Home />} />
-          <Route path="/art" element={<Arts />} />
-          <Route path="/art/:id" element={<Art />} />
-          <Route path="/camps" element={<Camps />} />
-          <Route path="/camp/:id" element={<Camp />} />
-          <Route path="/events" element={<Events />} />
-          <Route path="/event/:id" element={<Event />} />
-          <Route path="/radio" element={<Radios />} />
-          <Route path="/radio/:id" element={<Radio />} />
-          <Route path="/vehicles" element={<Vehicles />} />
-          <Route path="/vehicle/:id" element={<Vehicle />} />
+      <FavoritesContextProvider>
+        <AppBar />
+        <Container maxwidth="xs" sx={{ paddingTop: 2, paddingBottom: 2 }}>
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/art" element={<Arts />} />
+            <Route path="/art/:id" element={<Art />} />
+            <Route path="/camps" element={<Camps />} />
+            <Route path="/camp/:id" element={<Camp />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/favorites" element={<Events favoritesOnly />} />
+            <Route path="/event/:id" element={<Event />} />
+            <Route path="/radio" element={<Radios />} />
+            <Route path="/radio/:id" element={<Radio />} />
+            <Route path="/vehicles" element={<Vehicles />} />
+            <Route path="/vehicle/:id" element={<Vehicle />} />
 
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Container>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Container>
+        <BackToTopButton />
+      </FavoritesContextProvider>
     </DataContextProvider>
   );
 }

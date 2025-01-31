@@ -6,14 +6,12 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid2';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import CardHeader from '@mui/material/CardHeader';
 
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-
 import EventTags from 'components/EventTags';
+import FavoriteButton from 'components/FavoriteButton';
 
 import { MAX_DESCRIPTION_LENGTH } from 'const';
 
@@ -43,9 +41,7 @@ function EventCard({ eventTime }) {
           </CardContent>
         </CardActionArea>
         <CardActions sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button variant="outlined" endIcon={<FavoriteBorderIcon />}>
-            {eventTime.event.heart_count}
-          </Button>
+          <FavoriteButton eventTime={eventTime} />
         </CardActions>
       </Card>
     </Grid>

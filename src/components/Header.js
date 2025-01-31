@@ -1,15 +1,20 @@
 import React from 'react';
 
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-function Header({ children, ...props }) {
+function Header({ children, button, ...props }) {
   return (
-    <Typography
-      sx={{ typography: { sm: 'h1', xs: 'h3' }, width: '100%' }}
-      {...props}
-    >
-      {children}
-    </Typography>
+    <Stack direction="row">
+      <Typography
+        sx={{ typography: { sm: 'h1', xs: 'h3' }, flexGrow: 1 }}
+        component="span"
+        {...props}
+      >
+        {children}
+      </Typography>
+      {button}
+    </Stack>
   );
 }
 

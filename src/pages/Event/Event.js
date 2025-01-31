@@ -4,6 +4,7 @@ import { useParams, Link } from 'react-router';
 
 import { useEventTime } from 'contexts/data';
 
+import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItem from '@mui/material/ListItem';
@@ -15,6 +16,7 @@ import Paper from '@mui/material/Paper';
 
 import Header from 'components/Header';
 import EventTags from 'components/EventTags';
+import FavoriteButton from 'components/FavoriteButton';
 
 import DoubleArrowIcon from '@mui/icons-material/DoubleArrow';
 
@@ -89,6 +91,10 @@ function Event() {
               .map((_, index) => <Skeleton key={index} />)
           : eventTime.event.event_description}
       </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <FavoriteButton variant="large" eventTime={eventTime} />
+      </Box>
+
       {renderOtherTimesList()}
     </>
   );
