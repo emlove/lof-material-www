@@ -19,7 +19,7 @@ function Vehicle() {
         {vehicle === null
           ? Array(4)
               .fill(null)
-              .map(() => <Skeleton />)
+              .map((_, index) => <Skeleton key={index} />)
           : vehicle.description}
       </Typography>
     </>

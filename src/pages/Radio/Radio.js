@@ -20,7 +20,7 @@ function Radio() {
         {radio === null
           ? Array(4)
               .fill(null)
-              .map(() => <Skeleton />)
+              .map((_, index) => <Skeleton key={index} />)
           : radio.radio_description}
       </Typography>
     </>

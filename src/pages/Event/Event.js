@@ -86,7 +86,7 @@ function Event() {
         {eventTime === null
           ? Array(4)
               .fill(null)
-              .map(() => <Skeleton />)
+              .map((_, index) => <Skeleton key={index} />)
           : eventTime.event.event_description}
       </Typography>
       {renderOtherTimesList()}

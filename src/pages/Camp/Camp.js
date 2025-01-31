@@ -15,11 +15,18 @@ function Camp() {
   return (
     <>
       <Header>{camp === null ? <Skeleton /> : camp.name}</Header>
+      <Typography variant="h5">
+        {camp === null ? (
+          <Skeleton />
+        ) : (
+          `${camp.neighborhood} - Site ${camp.site}`
+        )}
+      </Typography>
       <Typography variant="body1">
         {camp === null
           ? Array(4)
               .fill(null)
-              .map(() => <Skeleton />)
+              .map((_, index) => <Skeleton key={index} />)
           : camp.description}
       </Typography>
     </>
