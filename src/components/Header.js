@@ -13,7 +13,7 @@ function Header({ children, button, ...props }) {
       >
         {children}
       </Typography>
-      {button}
+      <Stack justifyContent="center">{button}</Stack>
     </Stack>
   );
 }

@@ -45,7 +45,7 @@ function Home() {
             target="_blank"
             rel="noreferrer"
             sx={{ width: '100%', height: '100%', padding: 2 }}
-            variant="contained"
+            variant="outlined"
             endIcon={<LaunchIcon />}
           >
             {linkData.title}
@@ -53,18 +53,22 @@ function Home() {
         </Grid>
       ))}
       <Divider sx={{ width: '100%' }} />
-      {NAVIGATION_LINKS.map((linkData) => (
-        <Grid key={linkData.path} size={{ xs: 12, md: 6, lg: 4 }}>
-          <Button
-            component={RouterLink}
-            to={linkData.path}
-            sx={{ width: '100%', height: '100%', padding: 2 }}
-            variant="outlined"
-          >
-            {linkData.title}
-          </Button>
-        </Grid>
-      ))}
+      {NAVIGATION_LINKS.map((linkData) => {
+        const IconComponent = linkData.icon;
+        return (
+          <Grid key={linkData.path} size={{ xs: 12, md: 6, lg: 4 }}>
+            <Button
+              component={RouterLink}
+              to={linkData.path}
+              sx={{ width: '100%', height: '100%', padding: 2 }}
+              variant="contained"
+              startIcon={<IconComponent />}
+            >
+              {linkData.title}
+            </Button>
+          </Grid>
+        );
+      })}
     </Grid>
   );
 }

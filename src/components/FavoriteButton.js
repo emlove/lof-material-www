@@ -40,6 +40,7 @@ function FavoriteButton({ eventTime, variant = 'small' }) {
         variant="outlined"
         startIcon={isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         onClick={handleClick}
+        sx={{ margin: 2 }}
       >
         {isFavorite ? 'Remove From Favorites' : 'Add To Favorites'}
       </Button>

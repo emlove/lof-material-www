@@ -42,10 +42,12 @@ function Event() {
     if (otherTimes.length === 0) return null;
     return (
       <>
-        <Typography variant="subtitle1" sx={{ paddingLeft: 2, paddingTop: 2 }}>
-          Other times:
-        </Typography>
-        <List>
+        <List disableGutters>
+          <ListItem>
+            <ListItemText>
+              <Typography variant="subtitle1">Other times:</Typography>
+            </ListItemText>
+          </ListItem>
           {otherTimes.map((otherTime) => (
             <ListItem key={otherTime.event_time_id}>
               <Paper sx={{ width: '100%' }}>
