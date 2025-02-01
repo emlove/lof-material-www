@@ -51,10 +51,19 @@ function Events({ favoritesOnly }) {
     if (selectedTagSlugs.size === 0) {
       return sortedEventTimes;
     }
-    return sortedEventTimes?.filter((eventTime) =>
-      [...selectedTagSlugs].some((slug) => eventTime.event[slug])
+    return sortedEventTimes?.filter(
+      (eventTime) =>
+        [...selectedTagSlugs].some((slug) => eventTime.event[slug]) &&
+        eventTime.day_of_week === selectedDay &&
+        (!favoritesOnly || favoriteEventTimeIds.has(eventTime.event_time_id))
     );
-  }, [sortedEventTimes, filters]);
+  }, [
+    sortedEventTimes,
+    filters,
+    selectedDay,
+    favoriteEventTimeIds,
+    favoritesOnly,
+  ]);
 
   useEffect(() => {
     if (!showAllDayEvents && weekSelectionHeaderRef.current) {
@@ -76,12 +85,6 @@ function Events({ favoritesOnly }) {
   }
 
   function renderEventTime(eventTime) {
-    if (eventTime.day_of_week !== selectedDay) {
-      return null;
-    }
-    if (favoritesOnly && !favoriteEventTimeIds.has(eventTime.event_time_id)) {
-      return null;
-    }
     return <EventCard key={eventTime.event_time_id} eventTime={eventTime} />;
   }
 
@@ -125,29 +128,31 @@ function Events({ favoritesOnly }) {
         setSelectedDay={setSelectedDay}
         ref={weekSelectionHeaderRef}
       />
-      <Stack direction="column-reverse">
-        <Collapse in={showAllDayEvents}>
-          <Grid container spacing={2} padding={2}>
-            {renderEvents(true)}
-          </Grid>
-        </Collapse>
-        <Button
-          sx={{
-            margin: 2,
-            padding: 1,
-            position: 'sticky',
-            top: (theme) => theme.spacing(2),
-            display: 'flex',
-            backgroundColor: 'white',
-          }}
-          variant="outlined"
-          color="primaryText"
-          onClick={handleToggleAllDayEvents}
-          endIcon={showAllDayEvents ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        >
-          All Day Events
-        </Button>
-      </Stack>
+      {filteredEventTimes?.some((e) => e.all_day) ? (
+        <Stack direction="column-reverse">
+          <Collapse in={showAllDayEvents}>
+            <Grid container spacing={2} padding={2}>
+              {renderEvents(true)}
+            </Grid>
+          </Collapse>
+          <Button
+            sx={{
+              margin: 2,
+              padding: 1,
+              position: 'sticky',
+              top: (theme) => theme.spacing(2),
+              display: 'flex',
+              backgroundColor: 'white',
+            }}
+            variant="outlined"
+            color="primaryText"
+            onClick={handleToggleAllDayEvents}
+            endIcon={showAllDayEvents ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          >
+            All Day Events
+          </Button>
+        </Stack>
+      ) : null}
       <Grid container spacing={2} padding={2}>
         {renderEvents(false)}
       </Grid>
