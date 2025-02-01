@@ -42,7 +42,7 @@ function Event() {
     if (otherTimes.length === 0) return null;
     return (
       <>
-        <List disableGutters>
+        <List>
           <ListItem>
             <ListItemText>
               <Typography variant="subtitle1">Other times:</Typography>

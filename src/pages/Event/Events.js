@@ -17,15 +17,35 @@ import SelectDayTabBar from 'components/SelectDayTabBar';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
-import { TAGS } from 'const';
+import { EVENT_DAYS, TAGS } from 'const';
+
+function getDefaultFilters() {
+  return Object.fromEntries(TAGS.map((tag) => [tag.slug, false]));
+}
 
 function Events({ favoritesOnly }) {
   const weekSelectionHeaderRef = useRef();
-  const [filters, setFilters] = useState(
-    Object.fromEntries(TAGS.map((tag) => [tag.slug, false]))
+  const [filters, setFilters] = useState(() => {
+    try {
+      const storedFilters = JSON.parse(localStorage.getItem('lastFilters'));
+      if (storedFilters === null) {
+        return getDefaultFilters();
+      }
+      return Object.fromEntries(
+        TAGS.map((tag) => [tag.slug, !!storedFilters[tag.slug]])
+      );
+    } catch (error) {
+      console.error(error);
+      return getDefaultFilters();
+    }
+  });
+  const [showAllDayEvents, setShowAllDayEvents] = useState(
+    localStorage.getItem('showAllDay') !== 'false'
   );
-  const [showAllDayEvents, setShowAllDayEvents] = useState(true);
-  const [selectedDay, setSelectedDay] = useState('Wednesday');
+  const [selectedDay, setSelectedDay] = useState(
+    EVENT_DAYS.find((d) => d === localStorage.getItem('lastSelectedDay')) ||
+      'Wednesday'
+  );
   const eventTimes = useEventTimes();
   const favoriteEventTimeIds = useFavoriteEventTimeIds();
   const sortedEventTimes = useMemo(
@@ -42,6 +62,11 @@ function Events({ favoritesOnly }) {
   );
 
   const filteredEventTimes = useMemo(() => {
+    const preFilteredEventTimes = sortedEventTimes?.filter(
+      (eventTime) =>
+        eventTime.day_of_week === selectedDay &&
+        (!favoritesOnly || favoriteEventTimeIds.has(eventTime.event_time_id))
+    );
     const selectedTagSlugs = TAGS.reduce((acc, tag) => {
       if (filters[tag.slug]) {
         acc.add(tag.slug);
@@ -49,13 +74,10 @@ function Events({ favoritesOnly }) {
       return acc;
     }, new Set());
     if (selectedTagSlugs.size === 0) {
-      return sortedEventTimes;
+      return preFilteredEventTimes;
     }
-    return sortedEventTimes?.filter(
-      (eventTime) =>
-        [...selectedTagSlugs].some((slug) => eventTime.event[slug]) &&
-        eventTime.day_of_week === selectedDay &&
-        (!favoritesOnly || favoriteEventTimeIds.has(eventTime.event_time_id))
+    return preFilteredEventTimes?.filter((eventTime) =>
+      [...selectedTagSlugs].some((slug) => eventTime.event[slug])
     );
   }, [
     sortedEventTimes,
@@ -72,6 +94,18 @@ function Events({ favoritesOnly }) {
       });
     }
   }, [showAllDayEvents]);
+
+  useEffect(() => {
+    localStorage.setItem('lastSelectedDay', selectedDay);
+  }, [selectedDay]);
+
+  useEffect(() => {
+    localStorage.setItem('showAllDay', showAllDayEvents);
+  }, [showAllDayEvents]);
+
+  useEffect(() => {
+    localStorage.setItem('lastFilters', JSON.stringify(filters));
+  }, [filters]);
 
   function handleFilterToggle(slug) {
     setFilters((oldFilters) => ({
