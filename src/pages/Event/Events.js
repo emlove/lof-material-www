@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid2';
 import Skeleton from '@mui/material/Skeleton';
 import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 
 import { useEventTimes } from 'contexts/data';
@@ -16,6 +17,7 @@ import SelectDayTabBar from 'components/SelectDayTabBar';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
 import { EVENT_DAYS, TAGS } from 'const';
 
@@ -53,10 +55,9 @@ function Events({ favoritesOnly }) {
       eventTimes &&
       Object.values(eventTimes).toSorted(
         (a, b) =>
-          b.all_day - a.all_day ||
-          a.starting - b.starting ||
-          a.ending - b.ending ||
-          a.event.title.localeCompare(b.event.title)
+          a.starting - b.starting || // Sort first by start time
+          a.ending - b.ending || // Then by earliest end time
+          a.event.title.localeCompare(b.event.title) // Then alphabetically
       ),
     [eventTimes]
   );
@@ -91,6 +92,7 @@ function Events({ favoritesOnly }) {
     if (!showAllDayEvents && weekSelectionHeaderRef.current) {
       weekSelectionHeaderRef.current.scrollIntoView({
         behavior: 'smooth',
+        block: 'nearest',
       });
     }
   }, [showAllDayEvents]);
@@ -118,6 +120,11 @@ function Events({ favoritesOnly }) {
     setShowAllDayEvents(!showAllDayEvents);
   }
 
+  function handleRemoveFilters() {
+    setFilters(getDefaultFilters());
+    setShowAllDayEvents(true);
+  }
+
   function renderEventTime(eventTime) {
     return <EventCard key={eventTime.event_time_id} eventTime={eventTime} />;
   }
@@ -140,7 +147,21 @@ function Events({ favoritesOnly }) {
 
   return (
     <>
-      <Header>{favoritesOnly ? 'Favorites' : 'Events'}</Header>
+      <Header
+        button={
+          !showAllDayEvents || Object.values(filters).some((f) => f) ? (
+            <IconButton
+              aria-label="Remove filters"
+              size="large"
+              onClick={handleRemoveFilters}
+            >
+              <FilterAltOffIcon />
+            </IconButton>
+          ) : null
+        }
+      >
+        {favoritesOnly ? 'Favorites' : 'Events'}
+      </Header>
       <Grid container spacing={1}>
         {TAGS.map((tag) => {
           const IconComponent = tag.icon;
@@ -174,7 +195,7 @@ function Events({ favoritesOnly }) {
               margin: 2,
               padding: 1,
               position: 'sticky',
-              top: (theme) => theme.spacing(2),
+              top: (theme) => theme.spacing(8),
               display: 'flex',
               backgroundColor: 'white',
             }}
@@ -183,7 +204,7 @@ function Events({ favoritesOnly }) {
             onClick={handleToggleAllDayEvents}
             endIcon={showAllDayEvents ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           >
-            All Day Events
+            {showAllDayEvents ? 'Hide ' : 'Show '}All Day Events
           </Button>
         </Stack>
       ) : null}

@@ -66,32 +66,30 @@ function App() {
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar
-          position="static"
-          sx={{
-            background: 'linear-gradient(90deg, #eb3a52 0%, #e05855 100%)',
-          }}
-        >
-          <Container maxwidth="xs">
-            <Toolbar id="app-bar">
-              {renderButton()}
-              <Typography
-                variant="h6"
-                component={Link}
-                to="/"
-                sx={{
-                  flexGrow: 1,
-                  color: 'inherit',
-                  textDecoration: 'none',
-                }}
-              >
-                Lakes of Fire
-              </Typography>
-            </Toolbar>
-          </Container>
-        </AppBar>
-      </Box>
+      <AppBar
+        position="sticky"
+        sx={{
+          background: 'linear-gradient(90deg, #eb3a52 0%, #e05855 100%)',
+        }}
+      >
+        <Container maxwidth="xs">
+          <Toolbar id="app-bar">
+            {renderButton()}
+            <Typography
+              variant="h6"
+              component={Link}
+              to="/"
+              sx={{
+                flexGrow: 1,
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              Lakes of Fire
+            </Typography>
+          </Toolbar>
+        </Container>
+      </AppBar>
       <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
         <List>
           <ListItem>
