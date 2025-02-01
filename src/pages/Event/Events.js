@@ -195,7 +195,7 @@ function Events({ favoritesOnly }) {
               margin: 2,
               padding: 1,
               position: 'sticky',
-              top: (theme) => theme.spacing(8),
+              top: (theme) => theme.spacing(9),
               display: 'flex',
               backgroundColor: 'white',
             }}

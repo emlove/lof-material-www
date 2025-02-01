@@ -17,8 +17,8 @@
   },
   "scripts": {
     "process-data": "node scripts/process-data.js",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "yarn process-data && react-scripts start",
+    "build": "yarn process-data && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

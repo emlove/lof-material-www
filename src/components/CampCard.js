@@ -2,9 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router';
 
-import ButtonBase from '@mui/material/ButtonBase';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid2';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
