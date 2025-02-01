@@ -19,6 +19,7 @@ async function main() {
         (err) => {
           if (err) {
             console.error(`Error writing ${fileName}.json`, err);
+            process.exit(1);
           } else {
             console.log(`Generated ${fileName}.json`);
           }
@@ -37,6 +38,7 @@ async function main() {
     (err) => {
       if (err) {
         console.error(`Error writing events.json`, err);
+        process.exit(1);
       } else {
         console.log(`Generated events.json`);
       }
