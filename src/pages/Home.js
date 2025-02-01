@@ -35,7 +35,7 @@ function Home() {
   return (
     <Grid container spacing={2}>
       <Grid size={{ xs: 12 }}>
-        <Header align="center">Welcome to Lakes of Fire!</Header>
+        <Header align="center">Welcome Home!</Header>
       </Grid>
       {EXTERNAL_LINKS.map((linkData) => (
         <Grid key={linkData.url} size={{ xs: 12, md: 6 }}>
