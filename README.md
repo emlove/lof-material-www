@@ -18,3 +18,17 @@ To run the dev server for your app, run:
 ```sh
 yarn start
 ```
+
+## Build the production server
+
+To build the compiled production assets, run:
+
+```sh
+yarn build
+```
+
+## To test out the compiled assets, run:
+
+```sh
+cd build ; npx http-server
+```
